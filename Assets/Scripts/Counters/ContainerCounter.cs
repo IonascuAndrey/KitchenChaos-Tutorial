@@ -3,17 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ContainerCounter : BaseCounter
-{
+public class ContainerCounter : BaseCounter {
 
     public event EventHandler OnPlayerGrabObject;
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
-    public override void Interact(Player player)
-    {
-        if (!HasKitchenObject())
-        {
-            if(!player.HasKitchenObject())
-            {
+    public override void Interact(Player player) {
+        if (!HasKitchenObject()) {
+            if (!player.HasKitchenObject()) {
                 //Player is not carrying anything
                 KitchenObject.SpawnKitchenObject(kitchenObjectSO, player);
                 OnPlayerGrabObject?.Invoke(this, EventArgs.Empty);
@@ -22,5 +18,5 @@ public class ContainerCounter : BaseCounter
         }
     }
 
-    
+
 }
