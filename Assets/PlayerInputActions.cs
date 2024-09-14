@@ -15,9 +15,11 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @PlayerInputActions : IInputActionCollection2, IDisposable {
+public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
+{
     public InputActionAsset asset { get; }
-    public @PlayerInputActions() {
+    public @PlayerInputActions()
+    {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerInputActions"",
     ""maps"": [
@@ -47,6 +49,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable 
                     ""name"": ""InteractAlternate"",
                     ""type"": ""Button"",
                     ""id"": ""96809816-b42c-49c5-95f0-fd3d006177af"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""4faf08db-9e6c-4aee-9dd4-8074178d3112"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -169,7 +180,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable 
                     ""id"": ""1ec2d021-b062-4365-801f-974acf575022"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone(min=0.5)"",
                     ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
@@ -188,12 +199,56 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable 
                 },
                 {
                     ""name"": """",
+                    ""id"": ""fc7aaa81-02b0-4a8b-9680-a522840b7b99"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b1f2daa1-a5e2-4dbd-80cf-60b2567bb1b5"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""InteractAlternate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""70ee6548-0e07-422e-9c7c-e27ff1ab321b"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InteractAlternate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c637c53-346d-44e5-81cf-7fbe00a6eee4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a90f1c65-e500-4132-998a-338c7a5d6ee6"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -207,51 +262,62 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable 
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_InteractAlternate = m_Player.FindAction("InteractAlternate", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
-    public void Dispose() {
+    public void Dispose()
+    {
         UnityEngine.Object.Destroy(asset);
     }
 
-    public InputBinding? bindingMask {
+    public InputBinding? bindingMask
+    {
         get => asset.bindingMask;
         set => asset.bindingMask = value;
     }
 
-    public ReadOnlyArray<InputDevice>? devices {
+    public ReadOnlyArray<InputDevice>? devices
+    {
         get => asset.devices;
         set => asset.devices = value;
     }
 
     public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
-    public bool Contains(InputAction action) {
+    public bool Contains(InputAction action)
+    {
         return asset.Contains(action);
     }
 
-    public IEnumerator<InputAction> GetEnumerator() {
+    public IEnumerator<InputAction> GetEnumerator()
+    {
         return asset.GetEnumerator();
     }
 
-    IEnumerator IEnumerable.GetEnumerator() {
+    IEnumerator IEnumerable.GetEnumerator()
+    {
         return GetEnumerator();
     }
 
-    public void Enable() {
+    public void Enable()
+    {
         asset.Enable();
     }
 
-    public void Disable() {
+    public void Disable()
+    {
         asset.Disable();
     }
 
     public IEnumerable<InputBinding> bindings => asset.bindings;
 
-    public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false) {
+    public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
+    {
         return asset.FindAction(actionNameOrId, throwIfNotFound);
     }
 
-    public int FindBinding(InputBinding bindingMask, out InputAction action) {
+    public int FindBinding(InputBinding bindingMask, out InputAction action)
+    {
         return asset.FindBinding(bindingMask, out action);
     }
 
@@ -261,18 +327,22 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable 
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_InteractAlternate;
-    public struct PlayerActions {
+    private readonly InputAction m_Player_Pause;
+    public struct PlayerActions
+    {
         private @PlayerInputActions m_Wrapper;
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @InteractAlternate => m_Wrapper.m_Player_InteractAlternate;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
         public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void AddCallbacks(IPlayerActions instance) {
+        public void AddCallbacks(IPlayerActions instance)
+        {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
             @Move.started += instance.OnMove;
@@ -284,9 +354,13 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable 
             @InteractAlternate.started += instance.OnInteractAlternate;
             @InteractAlternate.performed += instance.OnInteractAlternate;
             @InteractAlternate.canceled += instance.OnInteractAlternate;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(IPlayerActions instance) {
+        private void UnregisterCallbacks(IPlayerActions instance)
+        {
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
@@ -296,14 +370,19 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable 
             @InteractAlternate.started -= instance.OnInteractAlternate;
             @InteractAlternate.performed -= instance.OnInteractAlternate;
             @InteractAlternate.canceled -= instance.OnInteractAlternate;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(IPlayerActions instance) {
+        public void RemoveCallbacks(IPlayerActions instance)
+        {
             if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IPlayerActions instance) {
+        public void SetCallbacks(IPlayerActions instance)
+        {
             foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
@@ -311,9 +390,11 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable 
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-    public interface IPlayerActions {
+    public interface IPlayerActions
+    {
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnInteractAlternate(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
